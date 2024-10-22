@@ -1,0 +1,16 @@
+body {
+  background-color: #1c1c1e; /* Dark background similar to the UI in the image */
+  color: #e5e5e5; /* Light text color */
+  font-family: Arial, sans-serif;
+}
+
+canvas {
+  margin: 20px auto;
+  display: block;
+  max-width: 100%;
+  border-radius: 10px; /* Add rounded corners to the canvas */
+}
+
+#myChart {
+  background-color: #262626; /* Dark background for the chart area */
+}
