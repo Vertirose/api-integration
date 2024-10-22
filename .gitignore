@@ -1,4 +1,9 @@
+# Application dependencies
 frontend/node_modules/
+
+# IoT Development folder
 iot/cert/
 iot/venv/
+
+# Environment Variable
 frontend/.env
