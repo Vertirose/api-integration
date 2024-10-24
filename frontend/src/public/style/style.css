@@ -1,0 +1,145 @@
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+body {
+  background-color: #1c1c1e; /* Dark background similar to the UI in the image */
+  color: #e5e5e5; /* Light text color */
+  font-family: Arial, sans-serif;
+}
+
+canvas {
+  margin: 20px auto;
+  display: block;
+  max-width: 100%;
+  border-radius: 10px; /* Add rounded corners to the canvas */
+}
+
+#myChart {
+  background-color: #262626; /* Dark background for the chart area */
+}
+
+button {
+  appearance: none;
+  border: 0;
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  height: 56px;
+  font-family: Arial, sans-serif;
+  font-size: 1em;
+  font-weight: 500;
+  background-color: #36a2eb; /* Your custom blue */
+  color: white;
+  cursor: pointer;
+  border-radius: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  transition: background-color 150ms ease, box-shadow 0.2s ease;
+  overflow: hidden; /* Ensure any overflowing elements are hidden */
+  position: relative; /* Allow absolute positioning of inner elements */
+}
+
+button:hover {
+  background-color: #1e3799;
+}
+
+.button-success {
+  background-color: #20bf6b !important; /* Green color */
+}
+
+.button-failure {
+  background-color: #e74c3c !important; /* Red color */
+}
+
+#svgContainer {
+  margin-right: 1rem; /* Space between text and SVG */
+  display: block; /* Initially show for hover */
+}
+
+#svgAfter {
+  display: none; /* Hidden by default */
+  position: absolute; /* Position it absolutely */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Center alignment */
+  stroke-dasharray: 26px;
+  stroke-dashoffset: 26px;
+}
+
+.afterAnimation #svgContainer {
+  animation: roll-out 1s 1 150ms;
+  animation-timing-function: ease-in;
+  animation-fill-mode: both;
+}
+
+.afterAnimation #svgAfter {
+  display: block; /* Show the checkout SVG */
+  animation: slide-in-center 150ms ease forwards; /* Slide in animation */
+  animation-timing-function: ease-in;
+  animation-fill-mode: both;
+  animation-delay: 1150ms;
+}
+
+.afterAnimation .buttonText {
+  animation: slide-up-fade 150ms 1;
+  animation-fill-mode: both;
+}
+
+/* Animation styles */
+@keyframes slide-up-fade {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-16px);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-center {
+  from {
+    transform: translate(-50%, 16px); /* Start from below */
+    opacity: 0;
+    stroke-dashoffset: 26px;
+  }
+  to {
+    transform: translate(-50%, 0); /* Move to center */
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes roll-out {
+  0% {
+    transform: translate(0) rotate(0);
+  }
+  20% {
+    transform: translate(0) rotate(-70deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(0) rotate(-45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(140px) rotate(-47deg);
+    opacity: 0;
+  }
+}
+
+@keyframes checkmark {
+  from {
+    stroke-dashoffset: 26px;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}

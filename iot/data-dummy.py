@@ -51,7 +51,6 @@ def generate_dummy_data():
     data = {
         'id': str(uuid.uuid4())[:8],
         'timestamp': datetime.datetime.now().isoformat(),
-        'timestamp': datetime,
         'temperature': round(random.uniform(20.0, 40.0), 2),
         'humidity': round(random.uniform(30.0, 90.0), 2),
         'gas_concentration': round(random.uniform(0.0, 1.0), 2),

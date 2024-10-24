@@ -5,11 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>API-Integration Chart</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style/style.css" />
+    <link rel="stylesheet" href="public/style/style.css" />
   </head>
   <body>
+    <!-- Chart -->
     <h1><center>API Integration</center></h1>
     <canvas id="sensorChart" width="800" height="400"></canvas>
-    <script src="chart.js"></script>
+
+    <!-- Button -->
+    <center>
+      <button id="mailButton">
+        <div id="svgContainer" class="hidden">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            id="Layer_1"
+            data-name="Layer 1"
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill
+          >
+            <path
+              fill="#e5e5e5"
+              d="M5.521,19.9h5.322l3.519,3.515a2.035,2.035,0,0,0,1.443.6,2.1,2.1,0,0,0,.523-.067,2.026,2.026,0,0,0,1.454-1.414L23.989,1.425Z"
+            />
+            <path
+              fill="#e5e5e5"
+              d="M4.087,18.5,22.572.012,1.478,6.233a2.048,2.048,0,0,0-.886,3.42l3.495,3.492Z"
+            />
+          </svg>
+        </div>
+        <span class="buttonText">Send Mail</span>
+        <div id="svgAfter" class="hidden">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            id="Layer_1"
+            data-name="Layer 1"
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+          >
+            <path
+              fill="#e5e5e5"
+              d="m4.173,13h19.829L4.201,23.676c-.438.211-.891.312-1.332.312-.696,0-1.362-.255-1.887-.734-.84-.77-1.115-1.905-.719-2.966l.056-.123,3.853-7.165Zm-.139-12.718C2.981-.22,1.748-.037.893.749.054,1.521-.22,2.657.18,3.717l3.979,7.283h19.841L4.11.322l-.076-.04Z"
+            />
+          </svg>
+        </div>
+      </button>
+    </center>
+
+    <!-- Script -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="script/chart.js"></script>
+    <script src="script/button.js"></script>
   </body>
 </html>

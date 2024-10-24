@@ -7,34 +7,36 @@ const port = env.port;
 
 app.use(express.static("src"));
 
-app.get("/api/data", (req, res) => {
+app.get("/api/data", async (req, res) => {
   const apiPath = env.api;
-  const jsonData = JSON.parse(apiPath);
 
-  // Extracting all items
-  const allData = jsonData.Items.map((item) => {
-    const timestamp = item.timestamp.S;
-    const date = new Date(timestamp);
+  try {
+    const response = await fetch(apiPath);
+    const jsonData = await response.json();
 
-    // Formatting the timestamp to HH:MM:SS
-    const formattedTimestamp = date.toTimeString().split(" ")[0]; // Get the time part
+    const allData = jsonData.map((item) => {
+      const timestamp = item.timestamp;
+      const date = new Date(timestamp);
 
-    return {
-      temperature: parseFloat(item.temperature.N),
-      humidity: parseFloat(item.humidity.N),
-      gas_concentration: parseFloat(item.gas_concentration.N),
-      fire_intensity: parseFloat(item.fire_intensity.N),
-      timestamp: formattedTimestamp,
-    };
-  });
+      const formattedTimestamp = date.toTimeString().split(" ")[0];
 
-  // Latest data
-  function getLatestData(data) {
-    return data.slice(-20); // Get the last 20 entries
+      return {
+        temperature: parseFloat(item.temperature),
+        humidity: parseFloat(item.humidity),
+        gas_concentration: parseFloat(item.gas_concentration),
+        fire_intensity: parseFloat(item.fire_intensity),
+        timestamp: formattedTimestamp,
+      };
+    });
+
+    function getLatestData(data) {
+      return data.slice(-20);
+    }
+    res.json(getLatestData(allData));
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.status(500).json({ error: "Failed to fetch data" });
   }
-
-  // Send limited data as a response
-  res.json(getLatestData(allData));
 });
 
 app.listen(port, () => {

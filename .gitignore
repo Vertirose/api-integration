@@ -1,9 +1,19 @@
-# Application dependencies
+# Application Dependencies
 frontend/node_modules/
 
-# IoT Development folder
+# IoT Development Folder
 iot/cert/
 iot/venv/
 
 # Environment Variable
 frontend/.env
+
+# Dummy Data
+frontend/src/data-api/
+
+# Testing Environment
+testing/
+
+# Development File
+frontend/app-dev.js
+frontend/src/data-api
