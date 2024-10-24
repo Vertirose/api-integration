@@ -1,5 +1,6 @@
 # Application Dependencies
 frontend/node_modules/
+frontend/src/data-api/
 
 # IoT Development Folder
 iot/cert/
@@ -16,4 +17,4 @@ testing/
 
 # Development File
 frontend/app-dev.js
-frontend/src/data-api
+frontend/.testing
