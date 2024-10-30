@@ -6,7 +6,6 @@ import ssl
 import logging
 import pkg_resources
 import datetime
-import uuid
 
 # Get the installed version of Paho MQTT
 paho_mqtt_version = pkg_resources.get_distribution("paho-mqtt").version
@@ -49,7 +48,6 @@ def on_disconnect(client, userdata, flags, reason_code, properties=None):
 # Dummy Data Generator
 def generate_dummy_data():
     data = {
-        'id': str(uuid.uuid4())[:8],
         'timestamp': datetime.datetime.now().isoformat(),
         'temperature': round(random.uniform(20.0, 40.0), 2),
         'humidity': round(random.uniform(30.0, 90.0), 2),
@@ -71,7 +69,7 @@ mqtt_client.tls_set(
     ca_certs=ca,
     certfile=cert,
     keyfile=priv,
-    tls_version=ssl.PROTOCOL_TLSv1_2  # Ensure TLSv1.2 for better performance and security
+    tls_version=ssl.PROTOCOL_TLSv1_2
 )
 
 # Enable auto-reconnect in case of disconnection
@@ -90,29 +88,21 @@ mqtt_client.loop_start()
 # Publish data to IoT Core in a loop
 try:
     while True:
-        # Generate dummy sensor data
         data = generate_dummy_data()
-
-        # Convert the data to JSON format
         payload = json.dumps(data)
-
-        # Publish the data with QoS 1 for guaranteed delivery at least once
         result = mqtt_client.publish(iot_topic, payload, qos=1)
 
-        # Log the result and check if the message was successfully queued
         if result.rc == mqtt.MQTT_ERR_SUCCESS:
             result.wait_for_publish()
             logging.info(f"Published data: {payload}")
         else:
             logging.error(f"Failed to publish message. Result code: {result.rc}")
 
-        # Wait for 5 seconds before publishing the next message
         time.sleep(5)
 
 except KeyboardInterrupt:
     logging.info("Stopped publishing.")
 finally:
-    # Ensure all in-flight messages are sent before disconnecting
     logging.info("Waiting for in-flight messages to be sent...")
     mqtt_client.loop_stop()
     mqtt_client.disconnect()
