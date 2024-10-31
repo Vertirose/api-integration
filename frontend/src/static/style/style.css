@@ -10,10 +10,26 @@
   }
 }
 
+::selection {
+  background-color: #e5e5e5;
+  color: #1c1c1e;
+}
+
 body {
   background-color: #1c1c1e; /* Dark background similar to the UI in the image */
   color: #e5e5e5; /* Light text color */
   font-family: Arial, sans-serif;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+img {
+  width: 2.5rem;
 }
 
 canvas {

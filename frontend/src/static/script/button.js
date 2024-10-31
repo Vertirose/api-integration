@@ -8,12 +8,14 @@ btn.addEventListener("click", async () => {
   btn.classList.remove("button-success", "button-failure");
 
   try {
-    const response = await fetch("http://localhost:8899/api/send", {
+    const response = await fetch("/api/send", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
     });
+
+    console.log("Response:", response);
 
     if (!response.ok) {
       throw new Error(
@@ -21,37 +23,32 @@ btn.addEventListener("click", async () => {
       );
     }
 
-    // Add success class
-    btn.classList.add("button-success"); // Green color for success
+    btn.classList.add("button-success");
 
-    // SweetAlert2 success alert
     await Swal.fire({
       icon: "success",
       title: "Haha, Email was sent successfully!",
       confirmButtonText: "OK! Thanks a lot!",
-      background: "#1c1c1e", // Optional: customize background
-      color: "#e5e5e5", // Optional: customize text color
+      background: "#1c1c1e",
+      color: "#e5e5e5",
     });
   } catch (error) {
     console.error("Error:", error);
-    // Add failure class
-    btn.classList.add("button-failure"); // Red color for failure
+    btn.classList.add("button-failure");
 
-    // SweetAlert2 error alert
     await Swal.fire({
       icon: "error",
       title: "Sorry, Email was not sent",
       text: error.message,
       confirmButtonText: "Why?",
-      background: "#1c1c1e", // Optional: customize background
-      color: "#e5e5e5", // Optional: customize text color
+      background: "#1c1c1e",
+      color: "#e5e5e5",
     });
   } finally {
-    // Wait for the animation to finish, then reset button state
     setTimeout(() => {
       btn.classList.remove("button-success", "button-failure");
-      btn.style.transition = "background-color 0.5s ease"; // Smooth transition for reset
+      btn.style.transition = "background-color 0.5s ease";
       document.documentElement.classList.remove("afterAnimation");
-    }, 2000); // Adjust duration if needed
+    }, 2000);
   }
 });

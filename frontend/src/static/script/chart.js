@@ -93,7 +93,12 @@ const myChart = new Chart(ctx, {
 // Function to fetch data and update the chart
 function fetchData() {
   console.log("Fetching data..."); // Log to track the fetch process
-  fetch("/api/data")
+  fetch("/api/data", {
+    headers: {
+      api_data:
+        "eyJhbGciOiJIUzUxMiJ9.eyJSb2xlIjoiYWRtaW5pc3RyYXRvciIsIklzc3VlciI6ImFkbWluaXN0cmF0b3IiLCJVc2VybmFtZSI6ImFwaUludGVncmF0aW9uIiwiVXNlZCI6ImdlbmVyYXRlQ2hhcnQifQ.xkWsKWZbLlUp67eWmLd8OAyJwW5_Gbo2GRIAB6eJMaKaT149owFi80JoqQaRHCjRX_hc_kvOsiZlHEXi1acOhw",
+    },
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");

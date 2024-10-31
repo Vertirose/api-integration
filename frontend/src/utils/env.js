@@ -1,4 +1,7 @@
-require("dotenv").config({ path: "./.env" });
+const dotenv = require("dotenv");
+const path = require("path");
+
+dotenv.config({ path: path.join(__dirname, "../../.env") });
 
 const production = {
   node_env: process.env.NODE_ENV,
@@ -10,14 +13,14 @@ const production = {
     secretKey: process.env.AWS_SECRET_KEY,
     sessionToken: process.env.AWS_SESSION_TOKEN || "",
   },
-  sequelize: {
-    dbName: process.env.DB_NAME,
-    dbUser: process.env.DB_USER,
-    dbPass: process.env.DB_PASS,
-    dbHost: process.env.DB_HOST,
-    dbPort: process.env.DB_PORT,
-    dbEngine: process.env.DB_ENGINE,
-  },
+  // sequelize: {
+  //   dbName: process.env.DB_NAME,
+  //   dbUser: process.env.DB_USER,
+  //   dbPass: process.env.DB_PASS,
+  //   dbHost: process.env.DB_HOST,
+  //   dbPort: process.env.DB_PORT,
+  //   dbEngine: process.env.DB_ENGINE,
+  // },
 };
 
 const development = {
@@ -30,14 +33,14 @@ const development = {
     secretKey: process.env.AWS_SECRET_KEY,
     sessionToken: process.env.AWS_SESSION_TOKEN || "",
   },
-  sequelize: {
-    dbName: process.env.DB_NAME,
-    dbUser: process.env.DB_USER,
-    dbPass: process.env.DB_PASS,
-    dbHost: process.env.DB_HOST,
-    dbPort: process.env.DB_PORT,
-    dbEngine: process.env.DB_ENGINE,
-  },
+  // sequelize: {
+  //   dbName: process.env.DB_NAME,
+  //   dbUser: process.env.DB_USER,
+  //   dbPass: process.env.DB_PASS,
+  //   dbHost: process.env.DB_HOST,
+  //   dbPort: process.env.DB_PORT,
+  //   dbEngine: process.env.DB_ENGINE,
+  // },
 };
 
 const config = process.env.NODE_ENV === "production" ? production : development;

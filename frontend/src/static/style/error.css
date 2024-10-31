@@ -1,0 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+body {
+  background-color: #1c1c1e; /* Dark background */
+  color: #e5e5e5; /* Light text color */
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  text-align: center;
+  background: #2c2c2e; /* Slightly lighter background for contrast */
+  padding: 2.5rem; /* Using rem */
+  border-radius: 1rem; /* Rounded corners */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Soft shadow */
+  max-width: 30rem; /* Responsive width */
+  width: 90%; /* Responsive width */
+}
+
+img {
+  width: 6rem; /* Adjusted for visibility */
+}
+
+h1 {
+  margin: 2rem 0 1rem;
+  font-size: 2.5rem;
+  color: #dc3545; /* Error color */
+  text-transform: uppercase; /* Uppercase text for emphasis */
+}
+
+p {
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  line-height: 1.5; /* Improved readability */
+  color: #b0b0b0; /* Muted text color */
+}
+
+a {
+  text-decoration: none;
+}
+
+.button {
+  appearance: none;
+  border: 0;
+  padding: 1rem 2rem;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background-color: #36a2eb; /* Custom blue */
+  color: white;
+  cursor: pointer;
+  border-radius: 2rem;
+  transition: background-color 150ms ease, transform 0.2s ease;
+}
+
+.button:hover {
+  background-color: #1e3799; /* Darker blue on hover */
+  transform: translateY(-2px); /* Subtle lift effect */
+}
+
+.footer {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #b0b0b0; /* Muted text color */
+}
