@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API-Integration Development</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <center><h1>API Integration Development State</h1></center>
+      <center>
+        <canvas id="sensorChart" width="800" height="400"></canvas>
+      </center>
+    </div>
+
+    <!-- Script for the chart -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      const ctx = document.getElementById("sensorChart").getContext("2d");
+
+      // Gradient definitions
+      const temperatureGradient = ctx.createLinearGradient(0, 0, 0, 400);
+      temperatureGradient.addColorStop(0, "rgba(255, 99, 132, 1)");
+      temperatureGradient.addColorStop(1, "rgba(255, 99, 132, 0.2)");
+
+      const humidityGradient = ctx.createLinearGradient(0, 0, 0, 400);
+      humidityGradient.addColorStop(0, "rgba(54, 162, 235, 1)");
+      humidityGradient.addColorStop(1, "rgba(54, 162, 235, 0.2)");
+
+      const gasGradient = ctx.createLinearGradient(0, 0, 0, 400);
+      gasGradient.addColorStop(0, "rgba(75, 192, 192, 1)");
+      gasGradient.addColorStop(1, "rgba(75, 192, 192, 0.2)");
+
+      const fireGradient = ctx.createLinearGradient(0, 0, 0, 400);
+      fireGradient.addColorStop(0, "rgba(255, 206, 86, 1)");
+      fireGradient.addColorStop(1, "rgba(255, 206, 86, 0.2)");
+
+      const myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: [], // Timestamps will go here
+          datasets: [
+            {
+              label: "Temperature",
+              data: [], // Temperature values
+              borderColor: "rgba(255, 99, 132, 1)",
+              backgroundColor: temperatureGradient,
+              borderWidth: 2,
+              fill: true,
+            },
+            {
+              label: "Humidity",
+              data: [], // Humidity values
+              borderColor: "rgba(54, 162, 235, 1)",
+              backgroundColor: humidityGradient,
+              borderWidth: 2,
+              fill: true,
+            },
+            {
+              label: "Gas Concentration",
+              data: [], // Gas concentration values
+              borderColor: "rgba(75, 192, 192, 1)",
+              backgroundColor: gasGradient,
+              borderWidth: 2,
+              fill: true,
+            },
+            {
+              label: "Fire Intensity",
+              data: [], // Fire intensity values
+              borderColor: "rgba(255, 206, 86, 1)",
+              backgroundColor: fireGradient,
+              borderWidth: 2,
+              fill: true,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            x: {
+              ticks: {
+                autoSkip: true,
+                maxTicksLimit: 10,
+                maxRotation: 0,
+                minRotation: 0,
+              },
+              grid: {
+                color: "#3a3a3a",
+                display: true,
+              },
+            },
+            y: {
+              grid: {
+                color: "#3a3a3a",
+                display: true,
+              },
+              ticks: {
+                color: "#e5e5e5",
+              },
+            },
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: "#e5e5e5",
+              },
+            },
+          },
+        },
+      });
+
+      // Function to fetch data and update the chart
+      function fetchData() {
+        console.log("Fetching data...");
+        fetch("/api/data", {
+          headers: {
+            api_data:
+              "eyJhbGciOiJIUzUxMiJ9.eyJSb2xlIjoiYWRtaW5pc3RyYXRvciIsIklzc3VlciI6ImFkbWluaXN0cmF0b3IiLCJVc2VybmFtZSI6ImFwaUludGVncmF0aW9uIiwiVXNlZCI6ImdlbmVyYXRlQ2hhcnQifQ.xkWsKWZbLlUp67eWmLd8OAyJwW5_Gbo2GRIAB6eJMaKaT149owFi80JoqQaRHCjRX_hc_kvOsiZlHEXi1acOhw",
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((allData) => {
+            console.log("Data fetched successfully:", allData);
+            // Clear existing data
+            myChart.data.labels = [];
+            myChart.data.datasets.forEach((dataset) => {
+              dataset.data = [];
+            });
+
+            // Update chart with new data
+            allData.forEach((entry) => {
+              myChart.data.labels.push(entry.timestamp);
+              myChart.data.datasets[0].data.push(entry.temperature);
+              myChart.data.datasets[1].data.push(entry.humidity);
+              myChart.data.datasets[2].data.push(entry.gas_concentration);
+              myChart.data.datasets[3].data.push(entry.fire_intensity);
+            });
+
+            myChart.update(); // Update the chart
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+          });
+      }
+
+      // Initial data fetch
+      fetchData();
+
+      // Poll for new data every 5 seconds
+      setInterval(fetchData, 5000);
+    </script>
+  </body>
+</html>

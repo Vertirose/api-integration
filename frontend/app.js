@@ -4,13 +4,20 @@ const axios = require("axios");
 const path = require("path");
 const staticDir = path.join(__dirname, "src", "static");
 const errorDir = path.join(staticDir, "error");
+const dev = require("./src/router/devRoute");
 const env = require("./src/utils/env");
+const devEnv = env.node_env === "development";
 const port = env.port;
 const api = env.api;
 const api_mess = env.message;
 
 app.use(express.json());
-app.use(express.static(staticDir));
+
+if (devEnv) {
+  app.use("/", dev); // Use the dev router
+} else {
+  app.use(express.static(staticDir));
+}
 
 app.post("/api/send", async (req, res) => {
   const requestData = req.body;
@@ -72,6 +79,7 @@ app.get("/api/data", checkAuthorization, async (req, res) => {
   }
 });
 
+// ----------------- Error Condition -----------------
 app.get("/bad-request", (req, res) => {
   res.status(400).sendFile(path.join(errorDir, "400.html"));
 });
