@@ -37,7 +37,7 @@ def fetch_and_send_data():
         sns_publish = sns_client.publish(
             TopicArn=sns_topic,
             Message=json_data,
-            Subject='Latest DynamoDB Entries From IoT Debice'
+            Subject='Latest DynamoDB Entries From IoT Device'
         )
 
         print('successfully sent latest data entries', sns_publish)
