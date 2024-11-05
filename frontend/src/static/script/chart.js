@@ -94,7 +94,9 @@ const myChart = new Chart(ctx, {
 function fetchData() {
   console.log("Fetching data..."); // Log to track the fetch process
   fetch("/api/data", {
+    method: "GET",
     headers: {
+      "Content-Type": "application/json",
       api_data:
         "eyJhbGciOiJIUzUxMiJ9.eyJSb2xlIjoiYWRtaW5pc3RyYXRvciIsIklzc3VlciI6ImFkbWluaXN0cmF0b3IiLCJVc2VybmFtZSI6ImFwaUludGVncmF0aW9uIiwiVXNlZCI6ImdlbmVyYXRlQ2hhcnQifQ.xkWsKWZbLlUp67eWmLd8OAyJwW5_Gbo2GRIAB6eJMaKaT149owFi80JoqQaRHCjRX_hc_kvOsiZlHEXi1acOhw",
     },

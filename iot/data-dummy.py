@@ -6,6 +6,7 @@ import ssl
 import logging
 import pkg_resources
 import datetime
+import os
 
 # Get the installed version of Paho MQTT
 paho_mqtt_version = pkg_resources.get_distribution("paho-mqtt").version
@@ -18,10 +19,12 @@ iot_endpoint = "XXX"  # IoT Core Endpoint
 iot_port = 8883  # IoT Core Port
 iot_topic = "api/integration"
 
-# IoT Core Cert Path
-cert = "XXX"  # Path to Device Cert
-priv = "XXX"  # Path to Private Key
-ca = "XXX"  # Path to Root CA
+project_path = os.path.dirname(os.path.abspath(__file__))
+
+# Certificate file paths
+cert = os.path.join(project_path, 'change-path', 'cert') # Change the path
+priv = os.path.join(project_path, 'change-path', 'priv') # Change the path
+ca = os.path.join(project_path, 'change-path', 'ca') # Change the path
 
 # MQTT Connection Callback Function
 def on_connect(client, userdata, flags, reason_code, properties=None):

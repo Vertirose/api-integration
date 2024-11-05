@@ -18,7 +18,9 @@ def lambda_handler(event, context):
 
 def get_items_from_dynamodb():
     try:
-        response = table.scan()
+        response = table.scan(
+            Limit=50 
+        )
         items = response['Items']
         
         # Convert Decimal values to string

@@ -8,6 +8,7 @@ const production = {
   port: process.env.PORT || 3000,
   api: process.env.API_MAIN,
   message: process.env.API_MESSAGE,
+  storage: process.env.LOG_DIR,
   aws: {
     accessKey: process.env.AWS_ACCESS_KEY,
     secretKey: process.env.AWS_SECRET_KEY,
@@ -28,6 +29,7 @@ const development = {
   port: process.env.PORT || 8000,
   api: process.env.API_MAIN,
   message: process.env.API_MESSAGE,
+  storage: process.env.LOG_DIR,
   aws: {
     accessKey: process.env.AWS_ACCESS_KEY,
     secretKey: process.env.AWS_SECRET_KEY,

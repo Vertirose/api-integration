@@ -16,7 +16,6 @@ def fetch_and_send_data():
     try:
         response = table.scan(
             Limit=20,
-            ScanIndexForward=False
         )
 
         items = response.get('Items', [])
@@ -33,12 +32,12 @@ def fetch_and_send_data():
                 if isinstance(value, Decimal):
                     item[key] = str(value)
 
-        json_data = json.dumps(items)
+        json_data = json.dumps(items, indent=4)
         
         sns_publish = sns_client.publish(
             TopicArn=sns_topic,
             Message=json_data,
-            Subject='Latest DynamoDB Entries'
+            Subject='Latest DynamoDB Entries From IoT Debice'
         )
 
         print('successfully sent latest data entries', sns_publish)
