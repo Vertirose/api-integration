@@ -1,10 +1,12 @@
 import json
 import boto3
 import uuid
+import os
 from decimal import Decimal
 
 dynamodb = boto3.resource('dynamodb')
-table = dynamodb.Table('api_int')
+dynamodb_table = os.environ('DYNAMODB_TABLE')
+table = dynamodb.Table(dynamodb_table)
 
 def lambda_handler(event, context):
     store_data(event)

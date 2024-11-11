@@ -18,3 +18,6 @@ testing/
 
 # Development File
 frontend/app-dev.js
+
+# Lambda Auth Functon
+lambda/auth.py

@@ -6,8 +6,9 @@ import os
 dynamodb = boto3.resource('dynamodb')
 sns_client = boto3.client('sns')
 
-table = dynamodb.Table('api_int')
 sns_topic = os.environ['SNS_TOPIC_ARN']
+dynamodb_table = os.environ('DYNAMODB_TABLE')
+table = dynamodb.Table(dynamodb_table)
 
 def lambda_handler(event, context):
     return fetch_and_send_data()
