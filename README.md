@@ -6,11 +6,11 @@ This project focuses on creating a monitoring and alerting solution for IoT devi
 
 The API Integration Project leverages a powerful combination of technologies to ensure reliability and efficiency:
 
-- **[Node.js](https://nodejs.org/):** Utilized for building scalable, event-driven server-side applications and managing API interactions.
-- **[Python](https://www.python.org/):** Used for AWS Lambda functions due to its simplicity and extensive support for AWS SDKs.
-- **[API Gateway](https://aws.amazon.com/api-gateway/):** A managed service for creating, publishing, maintaining, and securing APIs at scale.
-- **[DynamoDB](https://aws.amazon.com/dynamodb/):** A fully managed NoSQL database ensuring high availability, scalability, and performance.
-- **[AWS Lambda](https://aws.amazon.com/lambda/):** Facilitates serverless computing for event-driven tasks, such as processing IoT data and integrating with DynamoDB.
+- **[Node.js](https://nodejs.org/)** - Utilized for building scalable, event-driven server-side applications and managing API interactions.
+- **[Python](https://www.python.org/)** - Used for AWS Lambda functions due to its simplicity and extensive support for AWS SDKs.
+- **[API Gateway](https://aws.amazon.com/api-gateway/)** - A managed service for creating, publishing, maintaining, and securing APIs at scale.
+- **[DynamoDB](https://aws.amazon.com/dynamodb/)** - A fully managed NoSQL database ensuring high availability, scalability, and performance.
+- **[AWS Lambda](https://aws.amazon.com/lambda/)** - Facilitates serverless computing for event-driven tasks, such as processing IoT data and integrating with DynamoDB.
 
 ## Front-End Setup
 
