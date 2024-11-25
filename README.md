@@ -1,66 +1,63 @@
 # API Integration
 
-This project aims to develop a robust integration between the Internet of Things (IoT) and Application Programming Interface (API) on the Amazon Web Services (AWS) platform, focusing on creating an efficient and secure architecture for real-time data communication. By utilizing AWS services such as AWS IoT Core, API Gateway, and Lambda, the project will ensure optimal collection, processing, and storage of data from IoT devices, while implementing strict security measures to protect the transferred data. In addition, system monitoring will be conducted through AWS CloudWatch to ensure performance and reliability, creating a scalable solution that supports both organizational and personal needs in the future.
+This project focuses on creating a monitoring and alerting solution for IoT devices within the company by leveraging APIs and a serverless cloud environment. The solution incorporates real-time monitoring to efficiently track the status and performance of connected IoT devices. A robust alerting system ensures administrators are promptly notified of issues or specific conditions. Additionally, database backup mechanisms have been implemented to maintain data availability and resilience.
 
-## TechStack
+## Tech Stack
 
-API Integration Project uses a number of technology stacks to work properly
+The API Integration Project leverages a powerful combination of technologies to ensure reliability and efficiency:
 
-- [NodeJS]() -
-- [Python]() -
-- [API Gateway]() -
-- [DynamoDB]() -
-- [Lambda]() -
+- **[Node.js](https://nodejs.org/):** Utilized for building scalable, event-driven server-side applications and managing API interactions.
+- **[Python](https://www.python.org/):** Used for AWS Lambda functions due to its simplicity and extensive support for AWS SDKs.
+- **[API Gateway](https://aws.amazon.com/api-gateway/):** A managed service for creating, publishing, maintaining, and securing APIs at scale.
+- **[DynamoDB](https://aws.amazon.com/dynamodb/):** A fully managed NoSQL database ensuring high availability, scalability, and performance.
+- **[AWS Lambda](https://aws.amazon.com/lambda/):** Facilitates serverless computing for event-driven tasks, such as processing IoT data and integrating with DynamoDB.
 
-## Front-end Setup
+## Front-End Setup
 
-For the front-end, all files are available in the **/frontend** folder in this repository. All you need to do is fill in some environment variables that have been provided in the folder.
+The front-end for this project is located in the **/frontend** folder within this repository. Before running the application, ensure all environment variables provided in the folder are configured correctly.
 
-### Front-end Environment Variable
+### Front-End Environment Variables
 
-_example environment variables are also provided in the folder_
+Below is an example of the environment variables required for the application:
 
+```env
+API_MAIN=https://api-url/main
+API_MESSAGE=https://api-url/message
+LOG_DIR=/log/storage
 ```
-API_DATA="YOUR_API_DATA"
-API_MESSAGE="YOUR_API_MESSAGE"
-DEV_PORT="YOUR_DEVELOPMENT_PORT" # 3000
-PROD_PORT="YOUR_PRODUCTION_PORT" # 5000
-```
 
-### Project Setup
+## Project Setup
 
-Install dependencies by performing the following command
+Install dependencies by running the following command:
 
-```
+```bash
 npm install
 ```
 
-#### Compile and Hot-Reload for Development
+### Dynamic Chart Rendering for Development
 
-Run the application for development by performing the following command
+In the development environment, the application utilizes **dynamic chart rendering**, ensuring that only essential chart components are loaded. This approach accelerates hot-reload performance, enabling efficient development cycles. Start the development server with:
 
-```
+```bash
 npm run dev
 ```
 
-#### Type-Check, Compile and Minify for Production
+### Static Asset Preloading for Production
 
-Run the application for development by performing the following command
+For production, the application implements **static asset preloading**, bundling all components (charts, styles, and other assets) into optimized static files. This ensures fast load times and a seamless user experience. Build and serve the application for production using:
 
+```bash
+npm start
 ```
-npm run build
-```
 
-_Follow each step to run the application properly so that there are no configuration errors later_
+> **Note:** Follow these steps carefully to avoid configuration issues.
 
-## Lambda
+## AWS Lambda
 
-AWS Lambda has an important role in this project, as its functions control how the API operates. Therefore, all Lambda-related requirements have been provided in the **/lambda** folder. Be sure to configure and manage these functions so that the API can run optimally.
+AWS Lambda plays a critical role in this project, managing how APIs interact with the backend. All Lambda function requirements are available in the **/lambda** folder. Configure these functions correctly to ensure optimal API performance.
 
 ## Dummy Data
 
-If you don't have an IoT device to test in this project, you can use the prepared dummy data in the **/iot** folder to invoke an endpoint from AWS IoT Core. This will allow you to test functionality without the need for a physical device.
+If IoT devices are unavailable for testing, use the dummy data provided in the **/iot** folder. This allows you to invoke endpoints from AWS IoT Core and validate the functionality without needing physical devices.
 
----
-
-Author - Vertirose
+Author **_Vertirose_**
