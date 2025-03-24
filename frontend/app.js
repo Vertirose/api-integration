@@ -15,10 +15,15 @@ const api = env.api;
 const api_mess = env.message;
 const logDir = env.storage;
 
-// check log dir exist or not
-if (!fs.existsSync(logDir)) {
-  fs.mkdirSync(logDir);
+// check log dir exist or not (use async method for production)
+async function createLogDir() {
+  try {
+    await fs.promises.mkdir(logDir, { recursive: true });
+  } catch (err) {
+    console.error("Error creating log directory:", err);
+  }
 }
+createLogDir();
 
 // logger configuration
 const logger = winston.createLogger({
@@ -35,23 +40,34 @@ const logger = winston.createLogger({
 
 app.use(express.json());
 
-// checking node environement
+// checking node environment
 if (devEnv) {
   app.use("/", dev);
 } else {
   app.use(express.static(staticDir, { maxAge: "1d" }));
 }
 
-// logging midleware
+// logging middleware
 function logRequest(req, res, next) {
   logger.info(`Request: ${req.method} ${req.url}`);
   next();
 }
 
 app.post("/api/send", logRequest, async (req, res) => {
-  const requestData = req.body;
+  let requestData = req.body;
 
   try {
+    if (Array.isArray(requestData)) {
+      // Sort the data by timestamp
+      requestData.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+      // Format the timestamp after sorting
+      requestData = requestData.map((item) => {
+        item.timestamp = new Date(item.timestamp).toISOString().slice(0, 19).replace("T", " ");
+        return item;
+      });
+    }
+
     const response = await axios.post(api_mess, requestData);
     logger.info(`Successful request to /api/send`, {
       method: req.method,
@@ -94,11 +110,21 @@ app.get("/api/data", checkAuthorization, logRequest, async (req, res) => {
       humidity: parseFloat(item.humidity),
       gas_concentration: parseFloat(item.gas_concentration),
       fire_intensity: parseFloat(item.fire_intensity),
-      timestamp: new Date(item.timestamp).toTimeString().split(" ")[0],
+      timestamp: new Date(item.timestamp.slice(0, 23)),
+    }));
+
+    const sortedData = allData.sort((a, b) => a.timestamp - b.timestamp);
+
+    const formattedData = sortedData.map((item) => ({
+      temperature: parseFloat(item.temperature),
+      humidity: parseFloat(item.humidity),
+      gas_concentration: parseFloat(item.gas_concentration),
+      fire_intensity: parseFloat(item.fire_intensity),
+      timestamp: item.timestamp.toISOString().split('T')[1].split('.')[0],
     }));
 
     const getLatestData = (data) => data.slice(-20);
-    res.json(getLatestData(allData));
+    res.json(getLatestData(formattedData));
   } catch (error) {
     logger.error("Error fetching data:", error.message);
     res.status(500).json({ error: "Failed to fetch data" });
