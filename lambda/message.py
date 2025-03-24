@@ -6,8 +6,8 @@ import os
 dynamodb = boto3.resource('dynamodb')
 sns_client = boto3.client('sns')
 
-sns_topic = os.environ['SNS_TOPIC_ARN']
-dynamodb_table = os.environ('DYNAMODB_TABLE')
+sns_topic = os.environ.get('SNS_TOPIC_ARN')
+dynamodb_table = os.environ.get('DYNAMODB_TABLE')
 table = dynamodb.Table(dynamodb_table)
 
 def lambda_handler(event, context):
