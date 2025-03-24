@@ -21,7 +21,7 @@ def lambda_handler(event, context):
 def get_items_from_dynamodb():
     try:
         response = table.scan(
-            Limit=50
+            Limit=1000
         )
         items = response['Items']
         
