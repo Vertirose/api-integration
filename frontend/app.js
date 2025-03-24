@@ -57,17 +57,6 @@ app.post("/api/send", logRequest, async (req, res) => {
   let requestData = req.body;
 
   try {
-    if (Array.isArray(requestData)) {
-      // Sort the data by timestamp
-      requestData.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-
-      // Format the timestamp after sorting
-      requestData = requestData.map((item) => {
-        item.timestamp = new Date(item.timestamp).toISOString().slice(0, 19).replace("T", " ");
-        return item;
-      });
-    }
-
     const response = await axios.post(api_mess, requestData);
     logger.info(`Successful request to /api/send`, {
       method: req.method,
