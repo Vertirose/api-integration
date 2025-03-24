@@ -1,7 +1,8 @@
 import json
 import boto3
-from decimal import Decimal
 import os
+from decimal import Decimal
+from operator import itemgetter
 
 dynamodb = boto3.resource('dynamodb')
 sns_client = boto3.client('sns')
@@ -15,45 +16,48 @@ def lambda_handler(event, context):
 
 def fetch_and_send_data():
     try:
-        response = table.scan(
-            Limit=20,
-        )
+        response = table.scan(Limit=1000)  # Scan for up to 1000 items
 
         items = response.get('Items', [])
         if not items:
-            print('data not found')
+            print('Data not found.')
             return {
                 'statusCode': 404,
-                'body': json.dumps({'message': 'data not found'})
+                'body': json.dumps({'message': 'Data not found'})
             }
 
-        # Convert Decimal fields to strings for JSON compatibility
+        # Convert Decimal fields to float for compatibility
         for item in items:
             for key, value in item.items():
                 if isinstance(value, Decimal):
-                    item[key] = str(value)
+                    item[key] = float(value)
 
-        json_data = json.dumps(items, indent=4)
-        
+        # Sort the items by timestamp
+        items_sorted = sorted(items, key=itemgetter('timestamp'), reverse=True)
+
+        # Get the latest 20 items
+        latest_items = items_sorted[:20]
+
+        # Prepare the message
+        json_data = json.dumps(latest_items, indent=4)
+
+        # Send data to SNS
         sns_publish = sns_client.publish(
             TopicArn=sns_topic,
             Message=json_data,
             Subject='Latest DynamoDB Entries From IoT Device'
         )
 
-        print('successfully sent latest data entries', sns_publish)
+        print('Successfully sent latest data entries', sns_publish)
 
-        res = {
+        return {
             'statusCode': 200,
-            'body': json.dumps({'message': 'successfully sent latest data entries'})
+            'body': json.dumps({'message': 'Successfully sent latest data entries'})
         }
-
-        return res
 
     except Exception as e:
-        error_res =  {
+        error_res = {
             'statusCode': 500,
-            'body': json.dumps({'error': 'failed to process data', 'details': str(e)})
+            'body': json.dumps({'error': 'Failed to process data', 'details': str(e)})
         }
-
         return error_res
