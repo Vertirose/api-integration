@@ -16,6 +16,8 @@ The API Integration Project leverages a powerful combination of technologies to 
 
 The front-end for this project is located in the **/frontend** folder within this repository. Before running the application, ensure all environment variables provided in the folder are configured correctly.
 
+> **Note:** Use NodeJS v20 to properly run this Application 
+
 ### Front-End Environment Variables
 
 Below is an example of the environment variables required for the application:
